@@ -1,0 +1,17 @@
+{
+  "name": "sass-bin-darwin-64",
+  "version": "0.0.2",
+  "description": "The macOS 64-bit binary for sass-bin, a Sass compiler.",
+  "repository": "https://github.com/ricklamers/sass-bin",
+  "license": "MIT",
+  "preferUnplugged": false,
+  "bin": {
+    "sass": "./bin/sass"
+  },
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "x64"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "sass-bin-linux-32",
+  "version": "0.0.2",
+  "description": "The Linux 32-bit binary for sass-bin, a Sass compiler.",
+  "repository": "https://github.com/ricklamers/sass-bin",
+  "license": "MIT",
+  "preferUnplugged": false,
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "ia32"
+  ]
+}

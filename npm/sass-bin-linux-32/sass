@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# This script drives the standalone dart-sass package, which bundles together a
+# Dart executable and a snapshot of dart-sass.
+
+follow_links() {
+  file="$1"
+  while [ -h "$file" ]; do
+    # On Mac OS, readlink -f doesn't work.
+    file="$(readlink "$file")"
+  done
+  echo "$file"
+}
+
+SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+path="$(dirname "${SCRIPT_DIR}/$(follow_links "$SCRIPT_DIR/sass")")"
+exec "$path/src/dart" "$path/src/sass.snapshot" "$@"
