@@ -8,6 +8,8 @@ Read more here about the details of the performance difference: [https://sass-la
 
 ### How to install
 
+NPM link: [https://www.npmjs.com/package/sass-bin](https://www.npmjs.com/package/sass-bin)
+
 Use `sass-bin` instead of `sass` in your node module `package.json` dependencies. 
 
 ### Versioning
