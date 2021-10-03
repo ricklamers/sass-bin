@@ -1,16 +1,16 @@
 {
   "name": "sass-bin",
-  "version": "1.42.1-alpha.1",
+  "version": "1.42.1-alpha.2",
   "description": "This package wraps Dart Sass Dart VM-bundled binaries, to make the Dart binary available on NPM directly. It is based on: https://github.com/sass/dart-sass.",
   "repository": "https://github.com/ricklamers/sass-bin",
   "license": "MIT",
   "preferUnplugged": false,
   "files": [],
   "optionalDependencies": {
-    "sass-bin-darwin-64": "1.42.1-alpha.1",
-    "sass-bin-linux-32": "1.42.1-alpha.1",
-    "sass-bin-linux-64": "1.42.1-alpha.1",
-    "sass-bin-windows-32": "1.42.1-alpha.1",
-    "sass-bin-windows-64": "1.42.1-alpha.1"
+    "sass-bin-darwin-64": "1.42.1-alpha.2",
+    "sass-bin-linux-32": "1.42.1-alpha.2",
+    "sass-bin-linux-64": "1.42.1-alpha.2",
+    "sass-bin-windows-32": "1.42.1-alpha.2",
+    "sass-bin-windows-64": "1.42.1-alpha.2"
   }
 }
