@@ -46,7 +46,7 @@ function generateBinPath() {
     // package should have been installed alongside this package at install time.
     binPath = require.resolve(`${pkg}/${subpath}`);
   } catch (e) {
-    console.error(e)
+    console.error(e);
     throw new Error(`The package "${pkg}" could not be found, and is needed by sass-bin.
 If you are installing sass-bin with npm, make sure that you don't specify the
 "--no-optional" flag. The "optionalDependencies" package.json feature is used

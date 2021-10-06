@@ -6,11 +6,15 @@ RELEASE_VERSION = ${SASS_VERSION}-alpha.3
 prep-release: set-child-package-json generate-release-package-json download-binaries
 
 download-binaries: \
+	download-binaries-notice \
 	download-binaries-linux-32 \
 	download-binaries-linux-64 \
 	download-binaries-darwin-64 \
 	download-binaries-windows-32 \
 	download-binaries-windows-64
+
+download-binaries-notice:
+	@echo "Downloading binaries..."
 
 release: release-main release-bin-packages
 	@echo "Releasing..."
@@ -112,11 +116,13 @@ install-local-deps-linux-64:
 	$(call install_package,npm/sass-bin-linux-64)
 
 clean:
+	@echo "Cleaning..."
 	@find . -name 'package.json' -type f -prune -exec rm '{}' +
 	@find . -name '*.tgz' -type f -prune -exec rm '{}' +
 	@find . -name 'bin' -type d -prune -exec rm -r '{}' +
 
 set-child-package-json:
+	@echo "Write templates to package.json..."
 	@$(call write_version_package_json,npm/sass-bin-darwin-64)
 	@$(call write_version_package_json,npm/sass-bin-windows-64)
 	@$(call write_version_package_json,npm/sass-bin-windows-32)
@@ -124,6 +130,7 @@ set-child-package-json:
 	@$(call write_version_package_json,npm/sass-bin-linux-32)
 
 generate-local-package-json:
+	@echo "Generate local root package.json..."
 	@VERSION=${RELEASE_VERSION} ;\
 	PATH_DARWIN_64="file:$$(pwd)/npm/sass-bin-darwin-64" ;\
 	PATH_LINUX_32="file:$$(pwd)/npm/sass-bin-linux-32" ;\
@@ -141,6 +148,7 @@ generate-local-package-json:
 
 
 generate-release-package-json:
+	@echo "Generate release root package.json..."
 	@VERSION=${RELEASE_VERSION} ;\
 	cat package-template.json | \
 	sed "s|PATH_DARWIN_64|$$VERSION|g" | \
