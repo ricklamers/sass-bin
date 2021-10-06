@@ -1,4 +1,9 @@
-SASS_VERSION=1.42.1
+SHELL := /bin/bash
+
+SASS_VERSION = 1.42.1
+RELEASE_VERSION = ${SASS_VERSION}-alpha.3
+
+prep-release: set-child-package-json generate-release-package-json download-binaries
 
 download-binaries: \
 	download-binaries-linux-32 \
@@ -45,6 +50,20 @@ define download_tar_binary
 	rm ${FILE}
 endef
 
+define install_package
+	@cd $1 ;\
+	npm pack ;\
+	pack_file="$$(pwd)/$$(ls -1 *.tgz)" ;\
+	echo $$pack_file ;\
+	cd ../../ && npm install $$pack_file --no-save && rm $$pack_file
+endef
+
+define write_version_package_json
+	cat $1/package-template.json | \
+	sed "s|VERSION|${RELEASE_VERSION}|g" | \
+	cat > $1/package.json
+endef
+
 download-binaries-linux-32:
 	$(eval FILE=dart-sass-${SASS_VERSION}-linux-ia32.tar.gz)
 	$(eval BIN_PATH=npm/sass-bin-linux-32/bin)
@@ -76,3 +95,53 @@ download-binaries-windows-64:
 	$(eval FILE=dart-sass-${SASS_VERSION}-windows-x64.zip)
 	$(eval BIN_PATH=npm/sass-bin-windows-64/bin)
 	@$(call download_zip_binary,${FILE},${BIN_PATH})
+
+install-local-deps-darwin-64:
+	$(call install_package,npm/sass-bin-darwin-64)
+
+install-local-deps-windows-64:
+	$(call install_package,npm/sass-bin-windows-64)
+
+install-local-deps-windows-32:
+	$(call install_package,npm/sass-bin-windows-32)
+
+install-local-deps-linux-32:
+	$(call install_package,npm/sass-bin-linux-32)
+
+install-local-deps-linux-64:
+	$(call install_package,npm/sass-bin-linux-64)
+
+set-child-package-json:
+	@$(call write_version_package_json,npm/sass-bin-darwin-64)
+	@$(call write_version_package_json,npm/sass-bin-windows-64)
+	@$(call write_version_package_json,npm/sass-bin-windows-32)
+	@$(call write_version_package_json,npm/sass-bin-linux-64)
+	@$(call write_version_package_json,npm/sass-bin-linux-32)
+
+generate-local-package-json:
+	@VERSION=${RELEASE_VERSION} ;\
+	PATH_DARWIN_64="file:$$(pwd)/npm/sass-bin-darwin-64" ;\
+	PATH_LINUX_32="file:$$(pwd)/npm/sass-bin-linux-32" ;\
+	PATH_LINUX_64="file:$$(pwd)/npm/sass-bin-linux-64" ;\
+	PATH_WINDOWS_32="file:$$(pwd)/npm/sass-bin-windows-32" ;\
+	PATH_WINDOWS_64="file:$$(pwd)/npm/sass-bin-windows-64" ;\
+	cat package-template.json | \
+	sed "s|PATH_DARWIN_64|$$PATH_DARWIN_64|g" | \
+	sed "s|PATH_LINUX_32|$$PATH_LINUX_32|g" | \
+	sed "s|PATH_LINUX_64|$$PATH_LINUX_64|g" | \
+	sed "s|PATH_WINDOWS_32|$$PATH_WINDOWS_32|g" | \
+	sed "s|PATH_WINDOWS_64|$$PATH_WINDOWS_64|g" | \
+	sed "s|VERSION|$$VERSION|g" | \
+	cat > package.json
+
+
+generate-release-package-json:
+	@VERSION=${RELEASE_VERSION} ;\
+	cat package-template.json | \
+	sed "s|PATH_DARWIN_64|$$VERSION|g" | \
+	sed "s|PATH_LINUX_32|$$VERSION|g" | \
+	sed "s|PATH_LINUX_64|$$VERSION|g" | \
+	sed "s|PATH_WINDOWS_32|$$VERSION|g" | \
+	sed "s|PATH_WINDOWS_64|$$VERSION|g" | \
+	sed "s|VERSION|$$VERSION|g" | \
+	cat > package.json

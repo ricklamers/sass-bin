@@ -1,6 +1,6 @@
 {
   "name": "sass-bin-windows-64",
-  "version": "1.42.1-alpha.2",
+  "version": "VERSION",
   "description": "The Windows 64-bit binary for sass-bin, a Sass compiler.",
   "repository": "https://github.com/ricklamers/sass-bin",
   "license": "MIT",
