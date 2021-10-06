@@ -111,6 +111,11 @@ install-local-deps-linux-32:
 install-local-deps-linux-64:
 	$(call install_package,npm/sass-bin-linux-64)
 
+clean:
+	@find . -name 'package.json' -type f -prune -exec rm '{}' +
+	@find . -name '*.tgz' -type f -prune -exec rm '{}' +
+	@find . -name 'bin' -type d -prune -exec rm -r '{}' +
+
 set-child-package-json:
 	@$(call write_version_package_json,npm/sass-bin-darwin-64)
 	@$(call write_version_package_json,npm/sass-bin-windows-64)
