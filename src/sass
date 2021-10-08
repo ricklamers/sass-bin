@@ -63,7 +63,7 @@ by sass-bin to install the correct binary executable for your current platform.`
     isYarnPnP = true;
   } catch (e) {}
   if (isYarnPnP) {
-    const sassbinLibDir = path.dirname(require.resolve("sass-bin"));
+    const sassbinLibDir = path.dirname(require.resolve(`${pkg}/${subpath}`));
     const binTargetPath = path.join(
       sassbinLibDir,
       `pnpapi-${pkg}-${path.basename(subpath)}`
