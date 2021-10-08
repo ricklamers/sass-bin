@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 SASS_VERSION = 1.42.1
-RELEASE_VERSION = ${SASS_VERSION}-alpha.3
+RELEASE_VERSION = ${SASS_VERSION}-alpha.4
 
 prep-release: set-child-package-json generate-release-package-json download-binaries
 

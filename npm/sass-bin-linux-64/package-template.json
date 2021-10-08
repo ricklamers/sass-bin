@@ -5,9 +5,6 @@
   "repository": "https://github.com/ricklamers/sass-bin",
   "license": "MIT",
   "preferUnplugged": false,
-  "bin": {
-    "sass": "./bin/sass"
-  },
   "os": [
     "linux"
   ],

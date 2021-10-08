@@ -6,9 +6,6 @@
     "license": "MIT",
     "preferUnplugged": false,
     "files": [],
-    "bin": {
-      "sass": "./src/sass"
-    },
     "optionalDependencies": {
       "sass-bin-darwin-64": "$PATH_DARWIN_64",
       "sass-bin-linux-32": "$PATH_LINUX_32",
