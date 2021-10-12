@@ -1,9 +1,18 @@
 SHELL := /bin/bash
 
-SASS_VERSION = 1.42.1
-RELEASE_VERSION = ${SASS_VERSION}-alpha.5
+define derive_release_version
+$$(echo $1 | cut -d "." -f1).$$(echo $1 | cut -d "." -f2).$2
+endef
 
-prep-release: set-child-package-json generate-release-package-json download-binaries
+SASS_VERSION = 1.42.1
+SASS_BIN_MINOR = 2
+RELEASE_VERSION := $(call derive_release_version,${SASS_VERSION},${SASS_BIN_MINOR})
+
+prep-release: clean release-announce set-child-package-json generate-release-package-json download-binaries
+
+release-announce:
+	@echo Sass version: ${SASS_VERSION}
+	@echo Release version: ${RELEASE_VERSION}
 
 download-binaries: \
 	download-binaries-notice \
@@ -16,7 +25,7 @@ download-binaries: \
 download-binaries-notice:
 	@echo "Downloading binaries..."
 
-release: release-main release-bin-packages
+release: prep-release release-main release-bin-packages
 	@echo "Releasing..."
 
 release-main:
@@ -131,7 +140,7 @@ set-child-package-json:
 
 generate-local-package-json:
 	@echo "Generate local root package.json..."
-	@VERSION=${RELEASE_VERSION} ;\
+	@VERSION="${RELEASE_VERSION}" ;\
 	PATH_DARWIN_64="file:$$(pwd)/npm/sass-bin-darwin-64" ;\
 	PATH_LINUX_32="file:$$(pwd)/npm/sass-bin-linux-32" ;\
 	PATH_LINUX_64="file:$$(pwd)/npm/sass-bin-linux-64" ;\
@@ -149,7 +158,7 @@ generate-local-package-json:
 
 generate-release-package-json:
 	@echo "Generate release root package.json..."
-	@VERSION=${RELEASE_VERSION} ;\
+	@VERSION="${RELEASE_VERSION}" ; \
 	cat package-template.json | \
 	sed "s|PATH_DARWIN_64|$$VERSION|g" | \
 	sed "s|PATH_LINUX_32|$$VERSION|g" | \
