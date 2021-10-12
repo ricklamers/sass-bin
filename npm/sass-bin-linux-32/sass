@@ -13,5 +13,5 @@ follow_links() {
 }
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-path="$(dirname "${SCRIPT_DIR}/$(follow_links "$SCRIPT_DIR/sass")")"
+path="$(dirname "$(follow_links "$SCRIPT_DIR/sass")")"
 exec "$path/src/dart" "$path/src/sass.snapshot" "$@"
