@@ -14,6 +14,7 @@ const knownWindowsPackages = {
 };
 
 const knownUnixlikePackages = {
+  "darwin arm64 LE": "sass-bin-darwin-64",
   "darwin x64 LE": "sass-bin-darwin-64",
   "linux ia32 LE": "sass-bin-linux-32",
   "linux x64 LE": "sass-bin-linux-64",
