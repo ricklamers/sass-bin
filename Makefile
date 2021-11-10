@@ -5,7 +5,7 @@ $$(echo $1 | cut -d "." -f1).$$(echo $1 | cut -d "." -f2).$2
 endef
 
 SASS_VERSION = 1.43.4
-SASS_BIN_MINOR = 1
+SASS_BIN_MINOR = 2
 RELEASE_VERSION := $(call derive_release_version,${SASS_VERSION},${SASS_BIN_MINOR})
 
 prep-release: clean release-announce set-child-package-json generate-release-package-json download-binaries
