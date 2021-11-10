@@ -19,7 +19,3 @@ Use `sass-bin` instead of `sass` in your node module `package.json` dependencies
 ### Versioning
 
 The versioning of this package follows the version of the official implementation: [https://github.com/sass/dart-sass](https://github.com/sass/dart-sass)
-
-### macOS / M1
-
-`arch -x86_64 zsh -c "npm install sass-bin"` can be used to run the x64 darwin binary on the new M1 processor. 
